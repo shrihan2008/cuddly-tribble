@@ -21,7 +21,7 @@ function setup()
   monkey.addAnimation("moving",monkey_running)
   monkey.scale=0.25
   
-  ground=createSprite(di,700,5000,40)
+  ground=createSprite(500,700,5000,40)
   ground.velocityX=-5
 
   FoodGroup=new Group()
