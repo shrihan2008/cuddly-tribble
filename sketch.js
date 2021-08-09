@@ -33,8 +33,8 @@ function draw()
 {
   var x =200;
     var y;
-  camera.position.x = displayWidth/2;
-  camera.position.y = displayHeight/2
+  camera.position.x = monkey.x
+  camera.position.y = monkey.y
   if(ground.x<0)
     {
       ground.x=ground.width/2
