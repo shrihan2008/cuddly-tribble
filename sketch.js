@@ -5,11 +5,11 @@ var banana ,bananaImage, obstacle, obstacleImage
 var FoodGroup, obstacleGroup
 var  over,over1
 function preload()
-{
-  bg1=loadImage("bg.jpg")
+{b1=loadImage("jugnle.jpg")
   monkey_running =loadAnimation("sprite_0.png","sprite_1.png","sprite_2.png","sprite_3.png","sprite_4.png","sprite_5.png","sprite_6.png","sprite_7.png","sprite_8.png")  
   bananaImage = loadImage("banana.png");
   obstacleImage = loadImage("obstacle.png"); 
+  over1=loadImage("over.jpg")
 
 }
 
@@ -17,31 +17,40 @@ function preload()
 
 function setup()
 {
-  createCanvas(displayWidth,displayHeight)
-  monkey=createSprite(100,400)
-  monkey.addAnimation("moving",monkey_running)
-  monkey.scale=0.25
+  createCanvas(2000,2000)
+
   
-  ground=createSprite(500,700,5000,40)
-  ground.velocityX=-5
+  ground=createSprite(4000,700,5000,40)
+  ground.velocityX=-60
 
   FoodGroup=new Group()
   obstacleGroup=new Group()
+  bg=createSprite(0,0,600,600)
+ // bg.addImage(b1)
+  bg.scale=15
+  bg.addImage(b1)
+
+  ground=createSprite(4000,700,5000,40)
+  ground.velocityX=-60
+
+ monkey=createSprite(100,400)
+ monkey.addAnimation("moving",monkey_running)
+ monkey.scale=0.25
 }
 
 
 function draw()
 {
-
-background(bg1);
-  var x =200;
-    var y;
-  camera.position.x = monkey.x
-  camera.position.y = displayHeight/2
+bg.velocityX=-4
+  if(bg.x<0){
+    bg.x=bg.width/2
+  }
+  //background(b1)
   if(ground.x<0)
     {
       ground.x=ground.width/2
-
+    }
+  background(b1) 
   if (GAMESTATE===1)
   {  
   
@@ -50,7 +59,7 @@ background(bg1);
     {
       monkey.x=monkey.width/2
     }
-    if(keyDown("space")&&monkey.y<700)
+    if(keyDown("b")&&monkey.y<700)
     {    
       monkey.velocityY=-5
     }
@@ -69,12 +78,7 @@ background(bg1);
 
     bananaMaker();
     obstacles();
-    if(monkey.isTouching(FoodGroup))
-    {
-      survival=survival+1
-      FoodGroup.destroyEach()
-
-    }
+    
 
     if(monkey.isTouching(obstacleGroup))
     {
@@ -91,13 +95,24 @@ background(bg1);
     obstacleGroup.destroyEach()
     FoodGroup.setLifetimeEach(-1)
     obstacleGroup.setLifetimeEach(-1)
-    text("Game Over",350,350)
+    textSize(50)
+    bg.remove()
+    fill("orange")
+   text("GAME OVER",600,200)
   }
+
+  if(monkey.isTouching(FoodGroup))
+    {
+      survival=survival+1
+      FoodGroup.destroyEach()
+
+    }
   
-  
+  //textSize(45)
+ // text("HELLO",200,200)
+ fill("red")
   text("Survival  " +  survival,600,50)
   drawSprites(); 
-}
 }
 
 function bananaMaker()
@@ -107,8 +122,8 @@ function bananaMaker()
     
     banana = createSprite(100,400,10,40);
     banana.addImage("bun",bananaImage)
-    banana.x=Math.round(random(displayWidth,displayWidth))
-    banana.y=Math.round(random(displayHeight,displayHeight))
+    banana.x=Math.round(random(100,700))
+    banana.y=Math.round(random(400,700))
     banana.velocityY=3
     banana.lifetime=100
     banana.scale=0.25
