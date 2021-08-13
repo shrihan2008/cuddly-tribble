@@ -5,7 +5,7 @@ var banana ,bananaImage, obstacle, obstacleImage
 var FoodGroup, obstacleGroup
 var  over,over1
 function preload()
-{b1=loadImage("jugnle.jpg")
+{b1=loadImage("jungle.png")
   monkey_running =loadAnimation("sprite_0.png","sprite_1.png","sprite_2.png","sprite_3.png","sprite_4.png","sprite_5.png","sprite_6.png","sprite_7.png","sprite_8.png")  
   bananaImage = loadImage("banana.png");
   obstacleImage = loadImage("obstacle.png"); 
@@ -17,50 +17,43 @@ function preload()
 
 function setup()
 {
-  createCanvas(2000,2000)
-
+  createCanvas(1800,900)
   
-  ground=createSprite(4000,700,5000,40)
-  ground.velocityX=-60
-
   FoodGroup=new Group()
   obstacleGroup=new Group()
-  bg=createSprite(0,0,600,600)
- // bg.addImage(b1)
-  bg.scale=15
+  bg=createSprite(2000,600,2500,550)
   bg.addImage(b1)
-
-  ground=createSprite(4000,700,5000,40)
+  bg.scale=1.55  
+  ground=createSprite(4000,900,5000,40)
   ground.velocityX=-60
-
- monkey=createSprite(100,400)
- monkey.addAnimation("moving",monkey_running)
- monkey.scale=0.25
+  monkey=createSprite(100,400)
+  monkey.addAnimation("moving",monkey_running)
+  monkey.scale=0.25
 }
 
 
 function draw()
 {
-bg.velocityX=-4
+  background(b1)
+  bg.velocityX=-4
   if(bg.x<0){
-    bg.x=bg.width/2
+    bg.x=bg.width*1.1
   }
-  //background(b1)
+  
   if(ground.x<0)
-    {
-      ground.x=ground.width/2
-    }
-  background(b1) 
+  {
+    ground.x=ground.width/2
+  }
+  
   if (GAMESTATE===1)
   {  
-  
-    
     if(monkey.x>1000)
     {
       monkey.x=monkey.width/2
     }
-    if(keyDown("b")&&monkey.y<700)
-    {    
+    
+    if((keyIsDown(UP_ARROW))&&(monkey.y<1000))
+    { 
       monkey.velocityY=-5
     }
 
@@ -70,15 +63,13 @@ bg.velocityX=-4
       monkey.collide(ground)    
     }
 
-
-     if(keyDown("a"))
+    if(keyDown("a"))
      {
         monkey.velocityX=2    
      }
 
     bananaMaker();
     obstacles();
-    
 
     if(monkey.isTouching(obstacleGroup))
     {
@@ -98,7 +89,7 @@ bg.velocityX=-4
     textSize(50)
     bg.remove()
     fill("orange")
-   text("GAME OVER",600,200)
+   text("GAME OVER",500,200)
   }
 
   if(monkey.isTouching(FoodGroup))
@@ -111,7 +102,7 @@ bg.velocityX=-4
   //textSize(45)
  // text("HELLO",200,200)
  fill("red")
-  text("Survival  " +  survival,600,50)
+  text("Survival  " +  survival,500,100)
   drawSprites(); 
 }
 
@@ -135,7 +126,7 @@ function obstacles()
 {
   if (World.frameCount % 150 == 0)
   {
-    obstacle = createSprite(700,650,10,40);
+    obstacle = createSprite(700,850,10,40);
     obstacle.velocityX = -4   
     obstacle.addImage("ob", obstacleImage)  
     obstacle.lifetime=300
